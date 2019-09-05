@@ -1,0 +1,26 @@
+x <- c(635,644,711,708,836,820,810,870,856,923,878,937,948)
+y <- c(100,93,88,84,77,75,74,63,57,55,47,43,38)
+mod1 <- lm(y~x)
+summary(mod1)
+sxx <- sum((x-mean(x))^2)
+sxy <-  sum((x-mean(x))*(y-mean(y)))
+bb <- sxy/sxx
+aa <- mean(y) - bb*mean(x)
+yy <- aa+bb*x
+rr <- y-yy
+z <- data.frame(x,y,yy,rr)
+View(z)
+install.packages("ggplot2")
+require(ggplot2)
+mod1 <- lm(y~x)
+zz <- predict(mod1)
+qplot(x,y, geom=c("point"), method="lm") + geom_line(aes(y=zz), lwd=1.2, color=4)
+sse <- sum((y-yy)^2)
+s2= sse/11
+sst <- sum(y^2)-((sum(y))^2)/13
+r2 <- 1-(sse/sst)
+s <- sqrt(s2)
+sbb <- s/sqrt(sxx)
+qt(p=.95+.05/2,df=11,lower.tail = TRUE)
+ic <- bb-2.00985*(sbb)
+ic2 <- bb+2.00985*(sbb)
