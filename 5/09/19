@@ -1,0 +1,15 @@
+x <- c(42.2,42.6,43.3,43.5,43.7,44.1,44.9,45.3,45.7,45.7,45.9,46,46.2,46.2,46.8,46.8,47.1,47.2)
+y <- c(44,44,44,45,45,46,46,46,47,48,48,48,47,48,48,49,49,49)
+mod1 <- lm(y~x)
+summary(mod1)
+zz <- predict(mod1)
+zz
+b0 <- round(mod1$coefficients[1],2)
+b1 <- round(mod1$coefficients[2],2)
+mod1$coefficients
+require(ggplot2)
+qplot(x,y,
+      main="gràfica regresiòn", ylab="velocidad1",
+      xlab="velocidad2", geom=c("point"),
+      method="lm") + geom_line(aes(y=zz), lwd=1.2, color=4) +
+      geom_text(x=46, y=49, aes(label=paste("y","=",b0,"+",b1,"*","x")))
