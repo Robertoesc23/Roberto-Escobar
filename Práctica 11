@@ -1,0 +1,27 @@
+x1 <- c(30,40,30,40,30,40,30,40,30,40,30,40,30,40,30,40,25,45,35,35,35,35,35,35,35,35,35,35,35,35)
+x2 <- c (60,60,90,90,60,60,90,90,60,60,90,90,60,60,90,90,75,75,45,105,75,75,75,75,75,75,75,75,75,75)
+x3 <- c(175,175,175,175,225,225,225,225,175,175,175,175,225,225,225,225,200,200,200,200,150,250,200,200,200,200,200,200,200,200)
+x4 <- c(15,15,15,15,15,15,15,15,25,25,25,25,25,25,25,25,20,20,20,20,20,20,10,30,20,20,20,20,20,20)
+y <- c(26.2,26.3,39.8,39.7,38.6,35.5,48.8,37.8,26.6,23.4,38.6,52.1,39.5,32.3,43,56,35.2,46.9,22.7,58.7,34.5,44,35.7,41.8,36.5,37.6,40.3,46,27.8,40.3)
+
+datos <- data.frame(x1,x2,x3,x4,y)
+datos
+mod1<- lm(y~x1+x2+x3+x4, data=datos)
+mod1
+summary(mod1)  
+
+## Interpreta x3: Se estima que .1297gm es el cambio promedio en resistencia asociado con un aumento de grado 1 de temperatura 
+## cuando las otras tres variables independientes se mantienen fijos
+
+
+ŷ <- -37.47667+0.21167*35+0.49833*75+0.12967*200+0.258333*20
+ŷ
+
+names(mod1)
+mod1$coefficients ## Nos da todas las B
+mod1$fitted.values ## Valores de ŷ, ajustados, ecuación ajustada con mínimos cuadrados
+
+plot(x4,y)
+
+## F-statistic plantea H0=B1=B2=B3=B4=0 y la rechaza 
+## El error es qué tanto varía la recta respecto a la recta ajustada
