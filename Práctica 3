@@ -1,0 +1,46 @@
+x <- c(125.3,98.2,201.4,147.3,145.9,124.7,112.2,120.2,161.2,178.9,159.5,145.8,75.1,151.4,144.2,125,198.8,132.5,159.6,110.7)
+y <- c(77.9,76.8,81.5,79.8,78.2,78.3,77.5,77,80.1,80.2,79.9,79,76.7,78.2,79.5,78.1,81.5,77,79,78.6)
+
+sxx <- sum((x-mean(x))^2)
+sxy <-  sum((x-mean(x))*(y-mean(y)))
+B1 <- sxy/sxx
+B1
+B0 <- mean(y) - bb*mean(x)
+B0
+
+ŷ <- aa+bb*x
+ŷ
+
+res <- y-ŷ
+res
+
+##Los bajos valores de los residuos indican una relación lineal fuerte
+
+z <- data.frame(x,y,ŷ,res)
+View(z)
+
+
+require(ggplot2)
+mod1 <- lm(y~x)
+zz <- predict(mod1)
+qplot(x,y,
+      geom=c("point"),
+      method="lm") + geom_line(aes(y=zz), lwd=1.2, color=4)
+
+
+sse <- sum((y-ŷ)^2)  
+sse      #Parte del modelo no atribuída a una relación lineal
+
+s2= sse/18
+s <- sqrt(s)    
+s
+sst <- sum(y^2)-((sum(y))^2)/20
+sst       #Variación total en los valores observados. Suma de las desv al cuadrado respecto a la media muestral de y observadas
+
+f <- sse/sst
+f         #Parte de la var total no atribuída a una relación lineal
+
+r2 <- 1-f
+r2        #Proporción de var de y explicable por MRL
+
+summary(mod1)
